@@ -7,6 +7,9 @@ but the resulting model model.joblib will be applied to the holdout data.
 It is important to document your training steps here, including seed, 
 number of folds, model, et cetera
 """
+import random
+from sklearn.linear_model import LogisticRegression
+import joblib
 
 def train_save_model(cleaned_df, outcome_df):
     """
@@ -30,7 +33,7 @@ def train_save_model(cleaned_df, outcome_df):
     model = LogisticRegression()
 
     # Fit the model
-    model.fit(model_df[['age']], model_df['new_child'])
+    model.fit(model_df[['personal_finance_satisfaction']], model_df['new_child'])
 
     # Save the model
     joblib.dump(model, "model.joblib")

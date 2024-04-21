@@ -36,15 +36,15 @@ def clean_df(df, background_df=None):
 
     ## This script contains a bare minimum working example
     # Create new variable with age
-    df["age"] = 2024 - df["birthyear_bg"]
+    df["personal_finance_satisfaction"] = df["ci20m006"]
 
     # Imputing missing values in age with the mean
-    df["age"] = df["age"].fillna(df["age"].mean())
+    df["personal_finance_satisfaction"] = df["personal_finance_satisfaction"].fillna(df["personal_finance_satisfaction"].mode().iloc[0])
 
     # Selecting variables for modelling
     keepcols = [
         "nomem_encr",  # ID variable required for predictions,
-        "age"          # newly created variable
+        "personal_finance_satisfaction"          # newly created variable
     ] 
 
     # Keeping data with variables selected

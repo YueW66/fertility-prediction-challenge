@@ -91,7 +91,6 @@ def score(prediction_path, ground_truth_path, output):
     )
     metrics_df.to_csv(output, index=False)
 
-
 if __name__ == "__main__":
     args = parser.parse_args()
     score(args.prediction_path, args.ground_truth_path, args.output)
