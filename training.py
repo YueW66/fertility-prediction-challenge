@@ -8,8 +8,9 @@ It is important to document your training steps here, including seed,
 number of folds, model, et cetera
 """
 import random
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 import joblib
+import pandas as pd
 
 def train_save_model(cleaned_df, outcome_df):
     """
@@ -30,10 +31,12 @@ def train_save_model(cleaned_df, outcome_df):
     model_df = model_df[~model_df['new_child'].isna()]  
     
     # Logistic regression model
-    model = LogisticRegression()
+    model = RandomForestClassifier()
 
     # Fit the model
-    model.fit(model_df[['personal_finance_satisfaction']], model_df['new_child'])
+    X_train = model_df.drop(columns="new_child")
+    y_train = model_df["new_child"]
+    model.fit(X_train, y_train)
 
     # Save the model
     joblib.dump(model, "model.joblib")

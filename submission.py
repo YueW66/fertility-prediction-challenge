@@ -34,21 +34,49 @@ def clean_df(df, background_df=None):
     pd.DataFrame: The cleaned dataframe with only the necessary columns and processed variables.
     """
 
+
     ## This script contains a bare minimum working example
     # Create new variable with age
-    df["personal_finance_satisfaction"] = df["ci20m006"]
-
-    # Imputing missing values in age with the mean
-    df["personal_finance_satisfaction"] = df["personal_finance_satisfaction"].fillna(df["personal_finance_satisfaction"].mode().iloc[0])
+    df["age_respondent"] = df["cf17j004"]
+    df["birth_year"] = df["birthyear_bg"]
+    df["age"] = df["age_bg"]
+    df["primary_occupation"] = df["belbezig_2015"]
+    df["gross_household_income_2010"] = df["brutohh_f_2010"]
+    df["gross_household_income_2017"] = df["brutohh_f_2017"]
+    df["gross_household_income_2019"] = df["brutohh_f_2019"]
+    df["gross_household_income_2020"] = df["brutohh_f_2020"]
+    df["nett_household_income_2009"] = df["nettohh_f_2009"]
+    df["nett_household_income_2020"] = df["nettohh_f_2020"]
 
     # Selecting variables for modelling
     keepcols = [
         "nomem_encr",  # ID variable required for predictions,
-        "personal_finance_satisfaction"          # newly created variable
+        "age_respondent",         # newly created variable
+        "birth_year", 
+        "age", 
+        "primary_occupation", 
+        "gross_household_income_2010", 
+        "gross_household_income_2017", 
+        "gross_household_income_2019", 
+        "gross_household_income_2020", 
+        "nett_household_income_2009", 
+        "nett_household_income_2020"
     ] 
 
     # Keeping data with variables selected
     df = df[keepcols]
+
+    # Imputing missing values with the median
+    df["age_respondent"] = df["age_respondent"].fillna(df["age_respondent"].median())
+    df["birth_year"] = df["birth_year"].fillna(df["birth_year"].median())
+    df["age"] = df["age"].fillna(df["age"].median())
+    df["primary_occupation"] = df["primary_occupation"].fillna(df["primary_occupation"].median())
+    df["gross_household_income_2010"] = df["gross_household_income_2010"].fillna(df["gross_household_income_2010"].median())
+    df["gross_household_income_2017"] = df["gross_household_income_2017"].fillna(df["gross_household_income_2017"].median())
+    df["gross_household_income_2019"] = df["gross_household_income_2019"].fillna(df["gross_household_income_2019"].median())
+    df["gross_household_income_2020"] = df["gross_household_income_2020"].fillna(df["gross_household_income_2020"].median())
+    df["nett_household_income_2009"] = df["nett_household_income_2009"].fillna(df["nett_household_income_2009"].median())
+    df["nett_household_income_2020"] = df["nett_household_income_2020"].fillna(df["nett_household_income_2020"].median())
 
     return df
 
